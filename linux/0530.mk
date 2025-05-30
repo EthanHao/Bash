@@ -1,70 +1,107 @@
-1.  Command
-    command [options] [arguments] < input > output
-    1.1 options convention
-        a,  short  
-            ls -a
-            tar -cvf backup.tar /home/xxxx
-        b,  long options 
-            ls --hide
-            python --version
-    1.2 input and output redirection
+# ======================
+# BASH QUICK REFERENCE
+# ======================
 
-2,  How to connect commands
-   2.1  Pipeline   
-        A | B | C 
-   2.2  Sequential
-        A; B; C;
-   2.3  A && B  ( do both) 
-   2.4  A || B  ( do B if A failed)
-   2.5 command subsititution
-       echo "num $(ls -l | wc) , data $(date)"
-       echo "$(A) xxx $(B)"
+## 1. COMMAND STRUCTURE
+## --------------------
+command [options] [arguments] < input > output
 
-3,  moving around in File system
-  3.1  brace expansion  {1,2,3} , {A..Z..1}, {A, B, C}-{1..2}
-  3.2  wildcard in File system commands
-        ? any one char
-        * any number of char
-        [..] any one of char between the brackets
-        for example: ls [agw]*[ne]
-  3.2  xargs
-  
-4, Variables
-  4.1 Enviroment variables (use env to see all the enviroment variables) ( system wide, valid for sub shells)
-      $SHELL
-      $BASH
-      $BASH_VERSION
-      $PATH
-      $PS1
-      $HOME
- 
-  4.2 Shell variables (use set to see all the shell variables, env variables is a subset of shell variables)
-  4.3 export an env variables  (valid for sub shells)
-      export VAR=value
-  4.4 local varible  (local to the shell)
-      VAR=value
+### • Option Styles:
+   # Short (single-letter) options:
+   ls -a
+   tar -cvf backup.tar /home/xxxx
+   
+   # Long (word) options:
+   ls --hide
+   python --version
 
-5, config your own Bash
-  5.1 bash configuration files
-      ~/.bashrc ~/.bash_profile
-  5.1  setting your prompt
-      change PS1 enviroment
-  5.2  adding enviroment variables
-     PATH=$PATH:/user/xxx/mybin; export PATH
- 
-6, Bash function
-    # Define a function
-    myfunc() {
-      echo "Hello, $1!"
-    }
-    
-    # Call the function (no need for 'set')
-    myfunc "World"  # Output: Hello, World!
+### • Redirection:
+   command < input.txt   # Input from file
+   command > output.txt  # Output to file
+   command >> log.txt    # Append output
+   command 2> errors.log # Error redirection
 
-7, System info
-   7.1 uname
-   7.2 cpuinfo
-   7.3 free
-   7.4 df
-   7.5 ifconfig
-   7.6 
+
+## 2. COMMAND COMBINATION
+## ----------------------
+### • Pipeline:
+   A | B | C    # Output of A → Input of B
+
+### • Sequential:
+   A; B; C      # Run commands in sequence
+
+### • Conditional:
+   A && B       # Run B only if A succeeds
+   A || B       # Run B only if A fails
+
+### • Command Substitution:
+   echo "Items: $(ls | wc -l) | Date: $(date)"
+   echo "Result: $(my_command)"
+
+
+## 3. FILE SYSTEM NAVIGATION
+## -------------------------
+### • Brace Expansion:
+   touch file_{1,2,3}.txt
+   mkdir {A..Z}
+   create {Doc,Img}-{2020..2023}
+
+### • Wildcards:
+   ?       # Single character
+   *       # Any characters
+   [aeiou] # Match one vowel
+   [agw]*[ne]  # Files starting with a/g/w, ending with n/e
+
+### • xargs:
+   find . -name "*.txt" | xargs rm  # Delete found files
+
+
+## 4. VARIABLES
+## ------------
+### • Environment Variables (System-wide):
+   env              # View all
+   echo $PATH       # Executable search path
+   echo $HOME       # User directory
+   echo $PS1        # Prompt style
+
+### • Shell Variables (Current session):
+   set              # View all
+
+### • Variable Operations:
+   export API_KEY="123"  # Make available to sub-processes
+   LOCAL_VAR="temp"      # Session-only variable
+
+
+## 5. BASH CUSTOMIZATION
+## ---------------------
+### • Configuration Files:
+   ~/.bashrc         # Interactive shells
+   ~/.bash_profile   # Login shells
+
+### • Custom Prompts:
+   export PS1='\u@\h:\w\$ '  # User@host:dir$
+
+### • Add to PATH:
+   export PATH="$PATH:/user/xxx/mybin"
+
+
+## 6. BASH FUNCTIONS
+## -----------------
+### • Define:
+   greet() {
+     echo "Hello, $1!"
+     echo "Today: $(date)"
+   }
+
+### • Call:
+   greet "Alice"  # Output: Hello, Alice!
+
+
+## 7. SYSTEM INFORMATION
+## ---------------------
+uname -a    # Kernel/system info
+cat /proc/cpuinfo  # CPU details
+free -h     # Memory usage (human-readable)
+df -h       # Disk space (human-readable)
+ifconfig    # Network interfaces (ip addr for modern systems)
+lscpu       # Detailed CPU info
