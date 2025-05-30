@@ -23,11 +23,14 @@
 3,  moving around in File system
   3.1  brace expansion  {1,2,3} , {A..Z..1}, {A, B, C}-{1..2}
   3.2  wildcard in File system commands
-        ? ,  . , *
+        ? any one char
+        * any number of char
+        [..] any one of char between the brackets
+        for example: ls [agw]*[ne]
   3.2  xargs
   
 4, Variables
-  4.1 Enviroment variables
+  4.1 Enviroment variables (use env to see all the enviroment variables) ( system wide, valid for sub shells)
       $SHELL
       $BASH
       $BASH_VERSION
@@ -35,8 +38,11 @@
       $PS1
       $HOME
  
-  4.2 Shell variables
-  4.3 Local variables
+  4.2 Shell variables (use set to see all the shell variables, env variables is a subset of shell variables)
+  4.3 export an env variables  (valid for sub shells)
+      export VAR=value
+  4.4 local varible  (local to the shell)
+      VAR=value
 
 5, config your own Bash
   5.1 bash configuration files
@@ -47,6 +53,13 @@
      PATH=$PATH:/user/xxx/mybin; export PATH
  
 6, Bash function
+    # Define a function
+    myfunc() {
+      echo "Hello, $1!"
+    }
+    
+    # Call the function (no need for 'set')
+    myfunc "World"  # Output: Hello, World!
 
 7, System info
    7.1 uname
@@ -54,4 +67,4 @@
    7.3 free
    7.4 df
    7.5 ifconfig
-   7.6
+   7.6 
