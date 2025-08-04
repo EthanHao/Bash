@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>C++ Bitwise Operations Quiz</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; padding: 20px; }
+    h1 { text-align: center; }
+    .question { margin-bottom: 20px; }
+    .options label { display: block; margin-left: 20px; }
+    button { padding: 10px 20px; font-size: 16px; }
+    .result { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>C++ Bitwise Operations Quiz</h1>
+  <form id="quizForm">
+    <div class="question">
+      <p>1. What is the result of <code>5 & 3</code> in C++?</p>
+      <div class="options">
+        <label><input type="radio" name="q1" value="B"> B) 1</label>
+        <label><input type="radio" name="q1" value="A"> A) 7</label>
+        <label><input type="radio" name="q1" value="C"> C) 0</label>
+        <label><input type="radio" name="q1" value="D"> D) 8</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <p>2. Which operator in C++ performs a bitwise XOR?</p>
+      <div class="options">
+        <label><input type="radio" name="q2" value="C"> C) ^</label>
+        <label><input type="radio" name="q2" value="A"> A) &</label>
+        <label><input type="radio" name="q2" value="B"> B) |</label>
+        <label><input type="radio" name="q2" value="D"> D) ~</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <p>3. What does <code>(n & 1)</code> check?</p>
+      <div class="options">
+        <label><input type="radio" name="q3" value="C"> C) If n is odd</label>
+        <label><input type="radio" name="q3" value="A"> A) If n is divisible by 10</label>
+        <label><input type="radio" name="q3" value="B"> B) If n is even</label>
+        <label><input type="radio" name="q3" value="D"> D) If the first bit is set</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <p>4. Which expression sets the i-th bit of an integer <code>n</code>?</p>
+      <div class="options">
+        <label><input type="radio" name="q4" value="B"> B) n |= (1 << i)</label>
+        <label><input type="radio" name="q4" value="A"> A) n &= (1 << i)</label>
+        <label><input type="radio" name="q4" value="C"> C) n ^= ~(1 << i)</label>
+        <label><input type="radio" name="q4" value="D"> D) n = n >> i</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <p>5. How can you check if a number <code>n</code> is a power of two?</p>
+      <div class="options">
+        <label><input type="radio" name="q5" value="C"> C) (n & (n - 1)) == 0</label>
+        <label><input type="radio" name="q5" value="A"> A) (n & n) == 0</label>
+        <label><input type="radio" name="q5" value="B"> B) (n | (n - 1)) == 0</label>
+        <label><input type="radio" name="q5" value="D"> D) (n ^ n) == 1</label>
+      </div>
+    </div>
+
+    <button type="button" onclick="submitQuiz()">Submit</button>
+  </form>
+
+  <div class="result" id="result"></div>
+
+  <script>
+    function submitQuiz() {
+      const answers = { q1: 'B', q2: 'C', q3: 'C', q4: 'B', q5: 'C' };
+      let score = 0;
+      for (const [q, correct] of Object.entries(answers)) {
+        const selected = document.querySelector(`input[name="${q}"]:checked`);
+        if (selected && selected.value === correct) score++;
+      }
+      document.getElementById('result').textContent = `You scored ${score} out of ${Object.keys(answers).length}`;
+    }
+  </script>
+</body>
+</html>
