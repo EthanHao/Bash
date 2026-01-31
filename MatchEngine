@@ -1,0 +1,173 @@
+Nice topic — this is *perfect* for teaching real-world C++ 👍
+Below is a **clean, classroom-ready “Match Engine” problem description** you can give directly to students. It’s modeled after real trading systems but simplified enough for teaching data structures, algorithms, and clean C++ design.
+
+---
+
+## 📈 C++ Order Matching Engine – Problem Description
+
+### Background
+
+In electronic trading, a **matching engine** is responsible for pairing buy and sell orders for a financial instrument.
+Your task is to design and implement a **simplified limit order book and matching engine** in **C++**.
+
+The engine receives orders one by one and matches them according to **price-time priority**.
+
+---
+
+## 🧾 Order Definition
+
+Each order has the following fields:
+
+| Field       | Description                        |
+| ----------- | ---------------------------------- |
+| `order_id`  | Unique integer identifier          |
+| `side`      | `'B'` for Buy, `'S'` for Sell      |
+| `price`     | Positive integer                   |
+| `quantity`  | Positive integer                   |
+| `timestamp` | Increasing integer (arrival order) |
+
+---
+
+## 📚 Order Book Rules
+
+The engine maintains two books:
+
+### Buy Orders
+
+* Higher price has **higher priority**
+* If prices are equal, **earlier timestamp** wins
+
+### Sell Orders
+
+* Lower price has **higher priority**
+* If prices are equal, **earlier timestamp** wins
+
+---
+
+## 🔁 Matching Rules
+
+When a new order arrives:
+
+### 1. Buy Order (`B`)
+
+* Match against **lowest-price sell orders**
+* A match occurs if:
+  **buy_price ≥ sell_price**
+
+### 2. Sell Order (`S`)
+
+* Match against **highest-price buy orders**
+* A match occurs if:
+  **sell_price ≤ buy_price**
+
+---
+
+## ⚙️ Trade Execution
+
+When two orders match:
+
+* Trade price = **price of the resting order**
+* Trade quantity = `min(buy.quantity, sell.quantity)`
+* Reduce quantities accordingly
+* Fully filled orders are removed
+* Partially filled orders remain in the book
+
+Matching continues until:
+
+* Incoming order is fully filled, or
+* No more matching orders exist
+
+---
+
+## 🖨️ Output Requirements
+
+For each executed trade, print:
+
+```
+TRADE <buy_order_id> <sell_order_id> <price> <quantity>
+```
+
+---
+
+## 📥 Input Format
+
+A sequence of orders:
+
+```
+<order_id> <side> <price> <quantity>
+```
+
+Orders are processed **in the order given**.
+
+---
+
+## 📤 Example
+
+### Input
+
+```
+1 B 100 10
+2 S 99 5
+3 S 100 10
+```
+
+### Output
+
+```
+TRADE 1 2 99 5
+TRADE 1 3 100 5
+```
+
+### Explanation
+
+* Order 1 (Buy 100 × 10) matches:
+
+  * Order 2 (Sell 99 × 5)
+  * Order 3 (Sell 100 × 5)
+* Order 3 still has 5 remaining in the book
+
+---
+
+## 🛠️ Constraints (Teaching-Friendly)
+
+* Number of orders: up to **100,000**
+* Prices and quantities fit in `int`
+* Single instrument only
+
+---
+
+## 🎯 Learning Objectives (for Students)
+
+This problem teaches:
+
+* `priority_queue`, `map`, or `multiset`
+* Custom comparators in C++
+* Object-oriented design
+* Partial vs full state updates
+* Real-world system thinking
+* Time & space complexity tradeoffs
+
+---
+
+## ⭐ Optional Extensions (Great for Advanced Students)
+
+1. **Cancel Order**
+
+   ```
+   CANCEL <order_id>
+   ```
+2. **Market Orders** (price = 0)
+3. **Multiple instruments**
+4. **Order book snapshot output**
+5. **Unit tests for matching logic**
+
+---
+
+If you want, I can:
+
+* 🔧 Provide a **reference C++ implementation**
+* 🧪 Create **test cases** (basic → tricky)
+* 🧱 Break this into **step-by-step teaching milestones**
+* 🏁 Turn this into a **contest-style problem statement**
+
+Just tell me how deep you want to go.
